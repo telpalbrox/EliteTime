@@ -1,0 +1,48 @@
+{
+  "name": "elite-time",
+  "productName": "EliteTime",
+  "version": "0.0.1",
+  "description": "Unnoficial desktop EliteTorrent.net client",
+  "license": "MIT",
+  "repository": "user/repo",
+  "author": {
+    "name": "Alberto Luna",
+    "email": "alberto.luna.95@gmail.com"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "electronVersion": "0.34.1",
+  "scripts": {
+    "test": "xo",
+    "start": "electron .",
+    "build": "electron-packager . EliteTime --out=dist --ignore='^/dist$' --prune --asar --all --version=0.34.2"
+  },
+  "files": [
+    "index.js",
+    "index.html",
+    "index.css"
+  ],
+  "keywords": [
+    "electron-app"
+  ],
+  "dependencies": {
+    "axios": "^0.7.0",
+    "cheerio": "^0.19.0",
+    "electron-debug": "^0.3.0",
+    "normalize.css": "^3.0.3",
+    "peerflix": "^0.32.2"
+  },
+  "devDependencies": {
+    "electron-packager": "^5.0.0",
+    "electron-prebuilt": "^0.34.1",
+    "xo": "^0.10.0"
+  },
+  "xo": {
+    "esnext": true,
+    "envs": [
+      "node",
+      "browser"
+    ]
+  }
+}

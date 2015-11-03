@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>EliteTime</title>
+		<link rel="stylesheet" href="../node_modules/normalize.css/normalize.css">
+		<link rel="stylesheet" href="styles/index.css">
+	</head>
+	<body>
+		<div id="player"></div>
+		<h1 id="loading">Cargando...</h1>
+		<form id="search-torrent">
+			<label for="torrent-form-title">Search torrent</label>
+			<input id="torrent-form-title" type="text" name="torrent-title">
+			<input type="submit">
+		</form>
+		<div id="torrent-list-container"></div>
+		<div id="pagination-container">
+			<input type="button" id="prev-page" value="Página anterior"> <input type="button" id="next-page" value="Página siguiente">
+		</div>
+		<script src="app.js"></script>
+	</body>
+</html>
