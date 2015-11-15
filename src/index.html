@@ -1,23 +1,78 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>EliteTime</title>
-		<link rel="stylesheet" href="../node_modules/normalize.css/normalize.css">
-		<link rel="stylesheet" href="styles/index.css">
-	</head>
-	<body>
-		<div id="player"></div>
-		<h1 id="loading">Cargando...</h1>
-		<form id="search-torrent">
-			<label for="torrent-form-title">Search torrent</label>
-			<input id="torrent-form-title" type="text" name="torrent-title">
-			<input type="submit">
-		</form>
-		<div id="torrent-list-container"></div>
-		<div id="pagination-container">
-			<input type="button" id="prev-page" value="Página anterior"> <input type="button" id="next-page" value="Página siguiente">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>EliteTime</title>
+	<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="styles/index.css">
+</head>
+<body>
+<div id="player"></div>
+<div id="" class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">EliteTime</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Inicio</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="starter-template">
+            <div id="elite-time"></div>
+        </div>
+
+    </div><!-- /.container -->
+</div>
+<template id="app-template">
+
+</template>
+
+<template id="last-torrents-template">
+	<h2>Ultimos torrents</h2>
+	<div class="last-torrents-list-container row"></div>
+</template>
+
+<template id="torrent-template">
+    <div class="torrent-item col-xs-4" style="background-image: url({{ image }})">
+        <p>{{ name }}</p>
+        <p>{{ category }}</p>
+    </div>
+</template>
+
+<template id="torrent-view-template">
+	<div class="row">
+		<div class="col-md-3">
+            <img src="{{ image }}" alt="" class="img-thumbnail">
 		</div>
-		<script src="app.js"></script>
-	</body>
+		<div class="col-md-9">
+			<p>{{ title }}</p>
+			<p>{{ description }}</p>
+			<p>{{ size }}</p>
+			<p>{{ category }}</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12" id="player"></div>
+	</div>
+</template>
+<script>
+	var jQuery = require('jquery');
+</script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<script src="app.js"></script>
+</body>
 </html>

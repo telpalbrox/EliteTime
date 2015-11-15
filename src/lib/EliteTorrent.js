@@ -17,7 +17,7 @@ module.exports = {
 					download.name = $item.find('a.nombre').text();
 					download.url = url + relativeUrl;
 					download.id = relativeUrl.split('/')[2];
-					download.image = url + $item.find('img')[0].attribs.src;
+					download.image = url + '/' + $item.find('img')[0].attribs.src;
 					download.category = $item.find('span.categoria').text();
 					downloads.push(download);
 				}
