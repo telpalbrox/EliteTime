@@ -1,7 +1,7 @@
 "use strict";
 let axios = require("axios");
 let cheerio = require("cheerio");
-let url = require("../config.js").url;
+let url = require("../config").url;
 
 module.exports = {
 	getLastDownloads() {
@@ -56,6 +56,8 @@ module.exports = {
 			axios.get(queryUrl).then(response => {
 				let $ = cheerio.load(response.data);
 				let searchResults = $('.miniboxs.miniboxs-ficha li');
+				let totalAux = $('.box-seccion .nav h3').text().split('(total ')[1];
+				let total = parseInt(totalAux.slice(0, totalAux.length - 1));
 				let downloads = [];
 				for (let i = 0; i < searchResults.length; i++) {
 					let result = {};
@@ -64,11 +66,14 @@ module.exports = {
 					result.name = $item.find('a.nombre').text();
 					result.url = url + relativeUrl;
 					result.id = relativeUrl.split('/')[2];
-					result.image = url + $item.find('img')[0].attribs.src;
+					result.image = url + '/' + $item.find('img')[0].attribs.src;
 					result.category = $item.find('span.categoria').text();
 					downloads.push(result);
 				}
-				resolve(downloads);
+				resolve({
+					torrents: downloads,
+					total: total
+				});
 			}).catch(err => {
 				reject(err);
 			});

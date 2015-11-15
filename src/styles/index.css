@@ -16,9 +16,19 @@ body {
 
 .torrent-item {
 	color: white;
+	cursor: pointer;
 	height: 227px;
 	width: 160px;
 	background-repeat: no-repeat;
 	background-size: cover;
 	margin: 0 10px 10px 10px;
+	text-shadow:
+			-1px -1px 0 #000,
+			1px -1px 0 #000,
+			-1px 1px 0 #000,
+			1px 1px 0 #000;
+}
+
+#search-form {
+	margin-bottom: 20px;
 }

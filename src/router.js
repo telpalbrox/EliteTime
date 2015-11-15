@@ -2,10 +2,12 @@
 let LastTorrentsView = require('./views/LastTorrentsView');
 let TorrentView = require('./views/TorrentView');
 let EliteTorrent = require('./lib/EliteTorrent');
+let SearchView = require('./views/SearchView');
 module.exports = Backbone.Router.extend({
 	routes: {
-		"": "index",
-		"torrent/:id": "torrent"
+		'': 'index',
+		'torrent/:id': 'torrent',
+		'search': 'search'
 	},
 	index: function() {
 		EliteTorrent.getLastDownloads().then((torrents) => {
@@ -21,6 +23,12 @@ module.exports = Backbone.Router.extend({
 				el: '#elite-time',
 				torrent: torrent
 			});
+		});
+	},
+	search: function() {
+		console.log('search');
+		new SearchView({
+			el: '#elite-time'
 		});
 	}
 });
