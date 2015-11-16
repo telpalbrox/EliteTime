@@ -55,7 +55,6 @@ module.exports = Backbone.View.extend({
 		this.$next.addClass('disabled');
 		this.$prev.addClass('disabled');
 		setTimeout(() => {
-			console.log(this.page);
 			if(this.page > 1) {
 				this.$prev.removeClass('disabled');
 			}

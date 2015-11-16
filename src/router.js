@@ -9,7 +9,7 @@ module.exports = Backbone.Router.extend({
 		'torrent/:id': 'torrent',
 		'search': 'search'
 	},
-	index: function() {
+	index() {
 		EliteTorrent.getLastDownloads().then((torrents) => {
 			new LastTorrentsView({
 				el: '#elite-time',
@@ -17,7 +17,7 @@ module.exports = Backbone.Router.extend({
 			});
 		});
 	},
-	torrent: function(id) {
+	torrent(id) {
 		EliteTorrent.getTorrent(id).then((torrent) => {
 			new TorrentView({
 				el: '#elite-time',
@@ -25,8 +25,7 @@ module.exports = Backbone.Router.extend({
 			});
 		});
 	},
-	search: function() {
-		console.log('search');
+	search() {
 		new SearchView({
 			el: '#elite-time'
 		});
