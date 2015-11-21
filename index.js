@@ -23,7 +23,7 @@ function createMainWindow() {
 		height: 800
 	});
 
-	win.loadUrl(`file://${__dirname}/src/index.html`);
+	win.loadUrl(`file://${__dirname}/build/index.html`);
 	win.on('closed', onClosed);
 
 	return win;
