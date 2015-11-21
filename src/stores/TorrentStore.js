@@ -1,14 +1,20 @@
 import { EventEmitter } from 'events';
+import os from 'os'
+import peerflix from 'peerflix';
 import AppConstants from '../constants/AppConstants.js';
 import Config from '../constants/Config.js';
 import AppDispatcher from '../dispatcher/AppDispatcher.js';
 
 let CHANGE_EVENT = 'change';
-let torrent = {
-    torrent: {},
-    isFetching: false,
-    error: false
+let torrentDefaults = {
+	torrent: {},
+	streamUrl: '',
+	isFetching: false,
+	error: false,
+	engine: null,
+	loadingStream: false
 };
+let torrent = Object.assign({}, torrentDefaults);
 
 let TorrentStore = Object.assign({}, EventEmitter.prototype, {
     getTorrent() {
@@ -45,7 +51,11 @@ AppDispatcher.register(action => {
             torrent = Object.assign({}, torrent, {
                 error: false,
                 isFetching: false,
-                torrent: action.torrent
+                torrent: action.torrent,
+				loadingStream: true,
+				engine: peerflix(action.torrent.magnet, {
+					tmp: os.tmpdir()
+				})
             });
             TorrentStore.emitChange();
             break;
@@ -56,6 +66,20 @@ AppDispatcher.register(action => {
             });
             TorrentStore.emitChange();
             break;
+		case AppConstants.TORRENT_STREAM_READY:
+			torrent = Object.assign({}, torrent, {
+				loadingStream: false,
+				streamUrl: action.url
+			});
+			TorrentStore.emitChange();
+			break;
+		case AppConstants.CLEAN_TORRENT:
+			if(torrent.engine) {
+				torrent.engine.destroy();
+			}
+			torrent = Object.assign({}, torrentDefaults);
+			TorrentStore.emitChange();
+			break;
         default:
             // nothing
     }

@@ -33,10 +33,22 @@ let TorrentActions = {
 				torrent
 			});
 		}).catch(error => {
+			console.error(error);
 			AppDispatcher.dispatch({
 				type: AppConstants.ERROR_FETCH_TORRENT,
 				error
 			});
+		});
+	},
+	cleanTorrent() {
+		AppDispatcher.dispatch({
+			type: AppConstants.CLEAN_TORRENT
+		});
+	},
+	streamReady(url) {
+		AppDispatcher.dispatch({
+			type: AppConstants.TORRENT_STREAM_READY,
+			url
 		});
 	},
 	searchTorrent(query, page) {
@@ -52,6 +64,7 @@ let TorrentActions = {
 				torrents: response.torrents
 			});
 		}).catch(error => {
+			console.error(error);
 			AppDispatcher.dispatch({
 				type: AppConstants.ERROR_SEARCH_TORRENTS,
 				error
