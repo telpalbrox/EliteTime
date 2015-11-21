@@ -1,36 +1,32 @@
 import React, { Component } from 'react';
 import TorrentActions from '../actions/TorrentActions.js';
 import TorrentsStore from '../stores/TorrentsStore.js';
-import TorrentItemList from './TorrentItemList';
+import TorrentList from './TorrentList';
 
 export default class MainPage extends Component {
 
 	constructor() {
 		super();
 		this.state = TorrentsStore.getAll();
+		this.onChange = this.onChange.bind(this);
 	}
 
 	componentDidMount() {
-		TorrentsStore.addChangeListener(this.onChange.bind(this));
+		TorrentsStore.addChangeListener(this.onChange);
 		TorrentActions.getLastTorrents();
 	}
 
 	componentWillUnmount() {
-		TorrentsStore.removeChangeListener(this.onChange.bind(this));
+		TorrentsStore.removeChangeListener(this.onChange);
 	}
 
 	render() {
-		let torrents = this.state.torrents.map(torrent => {
-			return (<TorrentItemList key={torrent.id} torrent={torrent} />);
-		});
 
 		return (
 			<section>
 				<h1>Main Page</h1>
 				Fetching: { this.state.isFetching.toString() }
-				<ul>
-					{ torrents }
-				</ul>
+				<TorrentList torrents={this.state.torrents} />
 			</section>
 		);
 	}

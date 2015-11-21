@@ -4,15 +4,17 @@ import Config from '../constants/Config.js';
 import AppDispatcher from '../dispatcher/AppDispatcher.js';
 
 let CHANGE_EVENT = 'change';
-let torrent = {
-    torrent: {},
+let torrents = {
+    torrents: [],
+	query: '',
     isFetching: false,
-    error: false
+    error: false,
+	page: 0
 };
 
 let TorrentStore = Object.assign({}, EventEmitter.prototype, {
-    getTorrent() {
-        return torrent;
+    getAll() {
+        return torrents;
     },
     emitChange: function() {
         this.emit(CHANGE_EVENT);
@@ -35,22 +37,24 @@ let TorrentStore = Object.assign({}, EventEmitter.prototype, {
 
 AppDispatcher.register(action => {
     switch(action.type) {
-        case AppConstants.FETCH_TORRENT:
-            torrent = Object.assign({}, torrent, {
+        case AppConstants.SEARCH_TORRENTS:
+            torrents = Object.assign({}, torrents, {
                 isFetching: true
             });
             TorrentStore.emitChange();
             break;
-        case AppConstants.RECEIVED_TORRENT:
-            torrent = Object.assign({}, torrent, {
+        case AppConstants.RECEIVED_SEARCH_TORRENTS:
+            torrents = Object.assign({}, torrents, {
                 error: false,
                 isFetching: false,
-                torrent: action.torrent
+                torrents: action.torrents,
+				page: action.page,
+				query: action.query
             });
             TorrentStore.emitChange();
             break;
-        case AppConstants.ERROR_FETCH_TORRENT:
-            torrent = Object.assign({}, torrent, {
+        case AppConstants.ERROR_SEARCH_TORRENTS:
+            torrents = Object.assign({}, torrents, {
                 error: true,
 				isFetching: false
             });

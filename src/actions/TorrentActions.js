@@ -38,6 +38,25 @@ let TorrentActions = {
 				error
 			});
 		});
+	},
+	searchTorrent(query, page) {
+		AppDispatcher.dispatch({
+			type: AppConstants.SEARCH_TORRENTS,
+			query
+		});
+		return EliteTorrent.search(query, page).then(response => {
+			AppDispatcher.dispatch({
+				type: AppConstants.RECEIVED_SEARCH_TORRENTS,
+				query,
+				page,
+				torrents: response.torrents
+			});
+		}).catch(error => {
+			AppDispatcher.dispatch({
+				type: AppConstants.ERROR_SEARCH_TORRENTS,
+				error
+			});
+		});
 	}
 };
 

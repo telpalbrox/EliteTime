@@ -51,7 +51,8 @@ AppDispatcher.register(action => {
             break;
         case AppConstants.ERROR_FETCH_LAST_TORRENTS:
             torrents = Object.assign({}, torrents, {
-                error: true
+                error: true,
+				isFetching: false
             });
             TorrentStore.emitChange();
             break;
