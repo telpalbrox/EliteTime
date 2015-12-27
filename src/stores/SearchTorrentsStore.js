@@ -6,10 +6,11 @@ import AppDispatcher from '../dispatcher/AppDispatcher.js';
 let CHANGE_EVENT = 'change';
 let torrents = {
     torrents: [],
-	query: '',
+    query: '',
     isFetching: false,
     error: false,
-	page: 0
+    page: 0,
+    total: 0
 };
 
 let TorrentStore = Object.assign({}, EventEmitter.prototype, {
@@ -48,20 +49,21 @@ AppDispatcher.register(action => {
                 error: false,
                 isFetching: false,
                 torrents: action.torrents,
-				page: action.page,
-				query: action.query
+                page: action.page,
+                query: action.query,
+                total: action.total
             });
             TorrentStore.emitChange();
             break;
         case AppConstants.ERROR_SEARCH_TORRENTS:
             torrents = Object.assign({}, torrents, {
                 error: true,
-				isFetching: false
+                isFetching: false
             });
             TorrentStore.emitChange();
             break;
         default:
-            // nothing
+        // nothing
     }
 });
 

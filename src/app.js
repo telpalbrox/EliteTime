@@ -10,7 +10,7 @@ ReactDOM.render(
 	<Router>
 		<Route path="/" component={MainPage}/>
 		<Route path="/torrent/:id" component={TorrentPage}/>
-		<Route path="/search" component={SearchPage}/>
+		<Route path="/search(/:query)" component={SearchPage}/>
 	</Router>,
 	document.querySelector('#elite-time')
 );
