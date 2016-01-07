@@ -24,7 +24,10 @@ export default class extends Component {
     render() {
         const pagination = () => {
             if(this.state.torrents && this.state.torrents.length) {
-                return (<Pagination page={this.state.page} total={this.state.total} query={this.state.query} changePage={TorrentActions.searchTorrent} />);
+                return (
+                    <Pagination page={this.state.page} total={this.state.total} query={this.state.query}
+                                changePage={TorrentActions.searchTorrent} searchDisabled={this.state.searchDisabled}/>
+                );
             }
         };
         return (

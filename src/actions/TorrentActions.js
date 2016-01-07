@@ -65,6 +65,9 @@ let TorrentActions = {
                 torrents: response.torrents,
                 total: response.total
             });
+            setTimeout(() => AppDispatcher.dispatch({
+                type: AppConstants.API_TIMEOUT
+            }), 2000);
         }).catch(error => {
             console.error(error);
             AppDispatcher.dispatch({

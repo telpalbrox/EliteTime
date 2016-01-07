@@ -9,6 +9,7 @@ let torrents = {
     query: '',
     isFetching: false,
     error: false,
+    searchDisabled: false,
     page: 0,
     total: 0
 };
@@ -48,6 +49,7 @@ AppDispatcher.register(action => {
             torrents = Object.assign({}, torrents, {
                 error: false,
                 isFetching: false,
+                searchDisabled: true,
                 torrents: action.torrents,
                 page: action.page,
                 query: action.query,
@@ -59,6 +61,12 @@ AppDispatcher.register(action => {
             torrents = Object.assign({}, torrents, {
                 error: true,
                 isFetching: false
+            });
+            TorrentStore.emitChange();
+            break;
+        case AppConstants.API_TIMEOUT:
+            torrents = Object.assign({}, torrents, {
+                searchDisabled: false
             });
             TorrentStore.emitChange();
             break;
