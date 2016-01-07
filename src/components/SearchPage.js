@@ -46,6 +46,9 @@ export default class extends Component {
     }
 
     searchTorrents(query) {
+        if(!query) {
+            return;
+        }
         TorrentActions.searchTorrent(query, 1);
     }
 };
