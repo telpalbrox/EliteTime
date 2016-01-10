@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
+import { History } from 'react-router'
+import reactMixin from 'react-mixin';
 import TorrentActions from '../actions/TorrentActions.js';
 import TorrentStore from '../stores/TorrentStore.js';
 import TorrentPlayer from './TorrentPlayer';
 
+@reactMixin.decorate(History)
 export default class extends Component {
 
 	constructor() {
 		super();
 		this.state = TorrentStore.getTorrent();
 		this.onChange = this.onChange.bind(this);
+		this.goBack = this.goBack.bind(this);
 	}
 
 	componentDidMount() {
@@ -22,8 +26,18 @@ export default class extends Component {
 	}
 
 	render() {
+		const loadingSpinner = () => {
+			if(this.state.loadingStream) {
+				return ( <p>Cargando stream (esto puede llevar unos minutos) <i className="glyphicon glyphicon-hourglass loading" /></p>);
+			}
+		};
 		return (
 			<div>
+				<div className="row">
+					<div className="col-md-3">
+						<button type="button" className="btn btn-default back-button" onClick={this.goBack}>Atrás</button>
+					</div>
+				</div>
 				<div className="row">
 					<div className="col-md-3">
 						<img src={this.state.torrent.image} alt="" className="img-thumbnail"/>
@@ -35,8 +49,7 @@ export default class extends Component {
 						<p>{ this.state.torrent.category }</p>
 					</div>
 				</div>
-				<p>Loading torrent stream {this.state.loadingStream.toString()}</p>
-				<p>Loading torrent info {this.state.isFetching.toString()}</p>
+				{loadingSpinner()}
 				<TorrentPlayer streamUrl={this.state.streamUrl} />
 			</div>
 		);
@@ -50,5 +63,9 @@ export default class extends Component {
 			});
 		}
 		this.setState(newState);
+	}
+
+	goBack() {
+		this.history.goBack();
 	}
 }
