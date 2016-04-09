@@ -1,8 +1,16 @@
 'use strict';
-let Backbone = require('backbone');
-let AppView = require('./views/AppView');
-let Router = require('./router');
-document.body.onload = function() {
-	global.router = new Router();
-	Backbone.history.start();
-};
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { Router, Route } from 'react-router';
+import MainPage from './components/MainPage.js';
+import TorrentPage from './components/TorrentPage';
+import SearchPage from './components/SearchPage';
+
+ReactDOM.render(
+	<Router>
+		<Route path="/" component={MainPage}/>
+		<Route path="/torrent/:id" component={TorrentPage}/>
+		<Route path="/search(/:query)" component={SearchPage}/>
+	</Router>,
+	document.querySelector('#elite-time')
+);
