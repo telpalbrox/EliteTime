@@ -32,7 +32,7 @@ export default class extends Component {
         };
         return (
             <section>
-                <h1>Search Page</h1>
+                <h1>Búsqueda</h1>
                 <SearchInput search={this.searchTorrents} query={this.state.query} />
                 <TorrentList torrents={this.state.torrents} />
                 { pagination() }

@@ -24,7 +24,7 @@ export default class MainPage extends Component {
 
 		return (
 			<section>
-				<h1>Main Page</h1>
+				<h1>Últimos torrents</h1>
 				<TorrentList torrents={this.state.torrents} />
 			</section>
 		);
