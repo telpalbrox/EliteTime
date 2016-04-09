@@ -25,7 +25,6 @@ export default class MainPage extends Component {
 		return (
 			<section>
 				<h1>Main Page</h1>
-				Fetching: { this.state.isFetching.toString() }
 				<TorrentList torrents={this.state.torrents} />
 			</section>
 		);

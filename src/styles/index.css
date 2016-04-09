@@ -32,3 +32,13 @@ body {
 #search-form {
 	margin-bottom: 20px;
 }
+
+.loading {
+	animation: spin 4s linear infinite;
+}
+
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.back-button {
+	margin-bottom: 20px;
+}
