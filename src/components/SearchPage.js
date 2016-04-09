@@ -33,7 +33,6 @@ export default class extends Component {
         return (
             <section>
                 <h1>Search Page</h1>
-                Fetching: { this.state.isFetching.toString() }
                 <SearchInput search={this.searchTorrents} query={this.state.query} />
                 <TorrentList torrents={this.state.torrents} />
                 { pagination() }
