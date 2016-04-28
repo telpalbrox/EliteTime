@@ -1,18 +1,20 @@
 import { EventEmitter } from 'events';
+import _ from 'lodash';
 import AppConstants from '../constants/AppConstants.js';
-import Config from '../constants/Config.js';
 import AppDispatcher from '../dispatcher/AppDispatcher.js';
 
 let CHANGE_EVENT = 'change';
-let torrents = {
-    torrents: [],
-    query: '',
-    isFetching: false,
-    error: false,
-    searchDisabled: false,
-    page: 0,
-    total: 0
+
+let torrentsDefaults = {
+	torrents: [],
+	query: null,
+	isFetching: false,
+	error: false,
+	searchDisabled: false,
+	page: 0,
+	total: 0
 };
+let torrents = Object.assign({}, torrentsDefaults);
 
 let TorrentStore = Object.assign({}, EventEmitter.prototype, {
     getAll() {
@@ -21,6 +23,12 @@ let TorrentStore = Object.assign({}, EventEmitter.prototype, {
     emitChange: function() {
         this.emit(CHANGE_EVENT);
     },
+
+	getTorrent(id) {
+		return _.find(torrents.torrents, (torrent) => {
+			return id == torrent.id;
+		});
+	},
 
     /**
      * @param {function} callback
@@ -70,6 +78,9 @@ AppDispatcher.register(action => {
             });
             TorrentStore.emitChange();
             break;
+		case AppConstants.CLEAN_ALL:
+			torrents = Object.assign({}, torrentsDefaults);
+			break;
         default:
         // nothing
     }

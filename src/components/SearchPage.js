@@ -28,7 +28,9 @@ export default class extends Component {
                     <Pagination page={this.state.page} total={this.state.total} query={this.state.query}
                                 changePage={TorrentActions.searchTorrent} searchDisabled={this.state.searchDisabled}/>
                 );
-            }
+            } else if(this.state.query !== null) {
+				return <span>No hay resultados</span>;
+			}
         };
         return (
             <section>

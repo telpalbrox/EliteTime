@@ -5,12 +5,14 @@ import { Router, Route } from 'react-router';
 import MainPage from './components/MainPage.js';
 import TorrentPage from './components/TorrentPage';
 import SearchPage from './components/SearchPage';
+import SettingsPage from './components/SettingsPage';
 
 ReactDOM.render(
 	<Router>
 		<Route path="/" component={MainPage}/>
 		<Route path="/torrent/:id" component={TorrentPage}/>
 		<Route path="/search(/:query)" component={SearchPage}/>
+		<Route path="/settings" component={SettingsPage}/>
 	</Router>,
 	document.querySelector('#elite-time')
 );

@@ -14,5 +14,6 @@ export default keyMirror({
     RECEIVED_SEARCH_TORRENTS: null,
     ERROR_SEARCH_TORRENTS: null,
     CLEAN_SEARCH_TORRENTS: null,
-    TORRENT_STREAM_READY: null
+    TORRENT_STREAM_READY: null,
+	CLEAN_ALL: null
 });

@@ -1,8 +1,8 @@
 import { EventEmitter } from 'events';
 import os from 'os'
+var request = require('request');
 import peerflix from 'peerflix';
 import AppConstants from '../constants/AppConstants.js';
-import Config from '../constants/Config.js';
 import AppDispatcher from '../dispatcher/AppDispatcher.js';
 
 let CHANGE_EVENT = 'change';
@@ -53,7 +53,7 @@ AppDispatcher.register(action => {
                 isFetching: false,
                 torrent: action.torrent,
 				loadingStream: true,
-				engine: peerflix(action.torrent.magnet, {
+				engine: peerflix(action.torrent.magnet || action.torrent.file , {
 					tmp: os.tmpdir()
 				})
             });
@@ -73,6 +73,7 @@ AppDispatcher.register(action => {
 			});
 			TorrentStore.emitChange();
 			break;
+		case AppConstants.CLEAN_ALL:
 		case AppConstants.CLEAN_TORRENT:
 			if(torrent.engine) {
 				torrent.engine.destroy();
