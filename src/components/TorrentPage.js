@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { History } from 'react-router'
 import reactMixin from 'react-mixin';
+import request from 'request';
 import TorrentActions from '../actions/TorrentActions.js';
 import TorrentStore from '../stores/TorrentStore.js';
 import TorrentPlayer from './TorrentPlayer';
@@ -13,6 +14,7 @@ export default class extends Component {
 		this.state = TorrentStore.getTorrent();
 		this.onChange = this.onChange.bind(this);
 		this.goBack = this.goBack.bind(this);
+		this.downloadTorrent = this.downloadTorrent.bind(this);
 	}
 
 	componentDidMount() {
@@ -34,8 +36,9 @@ export default class extends Component {
 		return (
 			<div>
 				<div className="row">
-					<div className="col-md-3">
-						<button type="button" className="btn btn-default back-button" onClick={this.goBack}>Atrás</button>
+					<div className="col-md-12">
+						<button type="button" style={{float: 'left'}} className="btn btn-default back-button" onClick={this.goBack}>Atrás</button>
+						<button type="button" style={{float: 'right'}} className="btn btn-default back-button" onClick={this.downloadTorrent}>Descargar torrent</button>
 					</div>
 				</div>
 				<div className="row">
@@ -67,5 +70,18 @@ export default class extends Component {
 
 	goBack() {
 		this.history.goBack();
+	}
+
+	downloadTorrent() {
+		const fs = require('fs');
+		const dialog = require('electron').remote.dialog;
+		dialog.showSaveDialog({ title: 'Descargar .torrent', filters: [{ name: 'Torrent', extensions: ['torrent'] }] }, (filePath) => {
+			console.log(filePath);
+			const writeStream = fs.createWriteStream(filePath);
+			request(this.state.torrent.url).pipe(writeStream);
+			writeStream.on('error', (error) => {
+				console.error(error);
+			});
+		});
 	}
 }
