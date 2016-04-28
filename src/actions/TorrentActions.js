@@ -18,7 +18,7 @@ function getProvider() {
 }
 
 function getProviderName() {
-	window.localStorage.getItem('provider');
+	return window.localStorage.getItem('provider');
 }
 
 let TorrentActions = {
@@ -47,7 +47,7 @@ let TorrentActions = {
         });
 		const cachedTorrent = SearchTorrentsStore.getTorrent(id) || TorrentsStore.getTorrent(id);
 		if(getProviderName() === 'Newpct' && cachedTorrent) {
-			return getProvider().getTorrent(cachedTorrent.url).then(torrent => {
+			return Newpct.getTorrent(cachedTorrent.url).then(torrent => {
 				const filePath = `${os.tmpdir()}/tmp.torrent`;
 				const writeStream = fs.createWriteStream(filePath);
 				request(torrent.url).pipe(writeStream);
