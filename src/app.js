@@ -7,6 +7,11 @@ import TorrentPage from './components/TorrentPage';
 import SearchPage from './components/SearchPage';
 import SettingsPage from './components/SettingsPage';
 
+// set default provider
+if(!localStorage.getItem('provider')) {
+	localStorage.setItem('provider', 'EliteTorrent');
+}
+
 ReactDOM.render(
 	<Router>
 		<Route path="/" component={MainPage}/>

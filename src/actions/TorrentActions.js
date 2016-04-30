@@ -145,6 +145,9 @@ let TorrentActions = {
 			case 'linux':
 				command = 'vlc';
 				break;
+            case 'win32':
+                command = `"C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc"`;
+                break;
 			default:
 				return console.error('Cannot open VLC: Operative System not supported');
 		}
