@@ -7,6 +7,7 @@ import TorrentsStore from '../stores/TorrentsStore';
 const request = require('request');
 const os = require('os');
 const fs = require('fs');
+import { exec } from 'child_process';
 
 const PROVIDERS = {
 	EliteTorrent,
@@ -129,6 +130,33 @@ let TorrentActions = {
 	cleanAll() {
 		AppDispatcher.dispatch({
 			type: AppConstants.CLEAN_ALL
+		});
+	},
+	openVideoVlc(streamUrl) {
+		if(!streamUrl) {
+			return;
+		}
+
+		let command = '';
+		switch(process.platform) {
+			case 'darwin':
+				command = '/Applications/VLC.app/Contents/MacOS/VLC';
+				break;
+			case 'linux':
+				command = 'vlc';
+				break;
+			default:
+				return console.error('Cannot open VLC: Operative System not supported');
+		}
+
+		exec(`${command} "${streamUrl}"`, (err) => {
+			if(err) {
+				console.error(err);
+			}
+		});
+
+		AppDispatcher.dispatch({
+			type: AppConstants.OPEN_VIDEO_VLC
 		});
 	}
 };

@@ -15,6 +15,7 @@ export default class extends Component {
 		this.onChange = this.onChange.bind(this);
 		this.goBack = this.goBack.bind(this);
 		this.downloadTorrent = this.downloadTorrent.bind(this);
+		this.playInVlc = this.playInVlc.bind(this);
 	}
 
 	componentDidMount() {
@@ -38,7 +39,8 @@ export default class extends Component {
 				<div className="row">
 					<div className="col-md-12">
 						<button type="button" style={{float: 'left'}} className="btn btn-default back-button" onClick={this.goBack}>Atrás</button>
-						<button type="button" style={{float: 'right'}} className="btn btn-default back-button" onClick={this.downloadTorrent}>Descargar torrent</button>
+						<button type="button" style={{float: 'right'}} className="btn btn-default back-button" onClick={this.downloadTorrent}>Descargar .torrent</button>
+						<button type="button" style={{float: 'right'}} className="btn btn-default back-button" onClick={this.playInVlc}>Reproducir en VLC</button>
 					</div>
 				</div>
 				<div className="row">
@@ -83,5 +85,9 @@ export default class extends Component {
 				console.error(error);
 			});
 		});
+	}
+
+	playInVlc() {
+		TorrentActions.openVideoVlc(this.state.streamUrl);
 	}
 }

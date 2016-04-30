@@ -12,7 +12,7 @@ let torrentsDefaults = {
 };
 let torrents = Object.assign({}, torrentsDefaults);
 
-let TorrentStore = Object.assign({}, EventEmitter.prototype, {
+let TorrentsStore = Object.assign({}, EventEmitter.prototype, {
     getAll() {
         return torrents;
     },
@@ -47,7 +47,7 @@ AppDispatcher.register(action => {
             torrents = Object.assign({}, torrents, {
                 isFetching: true
             });
-            TorrentStore.emitChange();
+            TorrentsStore.emitChange();
             break;
         case AppConstants.RECEIVED_LAST_TORRENTS:
             torrents = Object.assign({}, torrents, {
@@ -55,21 +55,22 @@ AppDispatcher.register(action => {
                 isFetching: false,
                 torrents: action.torrents
             });
-            TorrentStore.emitChange();
+            TorrentsStore.emitChange();
             break;
         case AppConstants.ERROR_FETCH_LAST_TORRENTS:
             torrents = Object.assign({}, torrents, {
                 error: true,
 				isFetching: false
             });
-            TorrentStore.emitChange();
+            TorrentsStore.emitChange();
             break;
 		case AppConstants.CLEAN_ALL:
 			torrents = Object.assign({}, torrentsDefaults);
+			TorrentsStore.emitChange();
 			break;
         default:
             // nothing
     }
 });
 
-export default TorrentStore;
+export default TorrentsStore;

@@ -81,6 +81,10 @@ AppDispatcher.register(action => {
 			torrent = Object.assign({}, torrentDefaults);
 			TorrentStore.emitChange();
 			break;
+		case AppConstants.OPEN_VIDEO_VLC:
+			document.getElementById('torrent-video') && document.getElementById('torrent-video').pause();
+			TorrentStore.emitChange();
+			break;
         default:
             // nothing
     }
