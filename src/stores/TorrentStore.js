@@ -54,7 +54,8 @@ AppDispatcher.register(action => {
                 torrent: action.torrent,
 				loadingStream: true,
 				engine: peerflix(action.torrent.magnet || action.torrent.file , {
-					tmp: os.tmpdir()
+					tmp: os.tmpdir(),
+					uploads: 1
 				})
             });
             TorrentStore.emitChange();

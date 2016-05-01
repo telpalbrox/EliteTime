@@ -146,7 +146,13 @@ let TorrentActions = {
 				command = 'vlc';
 				break;
             case 'win32':
-                command = `"C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc"`;
+				if(fs.existsSync("C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe")) {
+					command = `"C:\\Program Files\\VideoLAN\\VLC\\vlc"`;
+				} else if(fs.existsSync("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe")) {
+					command = `"C:\\Program Files\\VideoLAN\\VLC\\vlc"`;
+				} else {
+					return console.error('VLC not found in your Windows installation');
+				}
                 break;
 			default:
 				return console.error('Cannot open VLC: Operative System not supported');
