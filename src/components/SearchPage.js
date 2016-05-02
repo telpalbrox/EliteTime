@@ -24,6 +24,9 @@ export default class extends Component {
     }
 	
 	renderPagination() {
+		if(this.state.torrents && this.state.torrents.length == this.state.total) {
+			return;
+		}
 		if(this.state.torrents && this.state.torrents.length) {
 			return (
 				<Pagination page={this.state.page} total={this.state.total} query={this.state.query}
@@ -33,14 +36,6 @@ export default class extends Component {
 	}
 
     render() {
-        const pagination = () => {
-            if(this.state.torrents && this.state.torrents.length) {
-                return (
-                    <Pagination page={this.state.page} total={this.state.total} query={this.state.query}
-                                changePage={TorrentActions.searchTorrent} searchDisabled={this.state.searchDisabled}/>
-                );
-            }
-        };
         return (
             <section>
                 <h1>Búsqueda</h1>
@@ -54,7 +49,7 @@ export default class extends Component {
 						return <span>No hay resultados</span>
 					}
 				})()}
-                { pagination() }
+                { this.renderPagination() }
             </section>
         );
     }

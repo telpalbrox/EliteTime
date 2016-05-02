@@ -9,9 +9,13 @@ export default class TorrentItemList extends Component {
 	};
 
 	render() {
-		let torrentItemStyles = {
-			backgroundImage: `url(${this.props.torrent.image})`
-		};
+		let torrentItemStyles = {};
+		if(this.props.torrent.image) {
+			torrentItemStyles.backgroundImage = `url(${this.props.torrent.image})`;
+		} else {
+			torrentItemStyles.backgroundColor = 'black';
+		}
+		
 		return(
 			<div onClick={this.onClick.bind(this)} className="torrent-item col-xs-4" style={torrentItemStyles}>
 				<p>{ this.props.torrent.name }</p>

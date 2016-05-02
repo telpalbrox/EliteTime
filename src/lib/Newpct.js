@@ -26,7 +26,7 @@ module.exports = {
 				}
 				resolve({
 					torrents: downloads,
-					total: searchResults.length
+					total: downloads.length
 				});
 			}).catch(err => {
 				reject(err);
