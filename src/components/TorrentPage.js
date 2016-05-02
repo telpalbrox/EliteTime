@@ -36,7 +36,7 @@ export default class extends Component {
 			return (<LoadingSpinner message="Cargando stream (esto puede llevar unos minutos" />);
 		}
 	}
-	
+
 	renderTorrent() {
 		return (
 			<div>
@@ -44,7 +44,12 @@ export default class extends Component {
 					<div className="col-md-12">
 						<button type="button" style={{float: 'left'}} className="btn btn-default back-button" onClick={this.goBack}>Atrás</button>
 						<button type="button" style={{float: 'right'}} className="btn btn-default back-button" onClick={this.downloadTorrent}>Descargar .torrent</button>
-						<button type="button" style={{float: 'right'}} className="btn btn-default back-button" onClick={this.playInVlc}>Reproducir en VLC</button>
+						{ this.state.streamUrl ? <button type="button" style={{float: 'right'}} className="btn btn-default back-button" onClick={this.playInVlc}>Reproducir en VLC</button> : '' }
+					</div>
+				</div>
+				<div className="row" style={{textAlign: 'right'}}>
+					<div className="col-md-12">
+						{ this.state.streamUrl ? <span>Stream disponible en: {this.state.streamUrl}</span> : '' }
 					</div>
 				</div>
 				<div className="row">
