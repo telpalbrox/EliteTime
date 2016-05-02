@@ -5,6 +5,7 @@ import request from 'request';
 import TorrentActions from '../actions/TorrentActions.js';
 import TorrentStore from '../stores/TorrentStore.js';
 import TorrentPlayer from './TorrentPlayer';
+import LoadingSpinner from './LoadingSpinner';
 
 @reactMixin.decorate(History)
 export default class extends Component {
@@ -16,6 +17,8 @@ export default class extends Component {
 		this.goBack = this.goBack.bind(this);
 		this.downloadTorrent = this.downloadTorrent.bind(this);
 		this.playInVlc = this.playInVlc.bind(this);
+		this.loadingStreamSpinner = this.loadingStreamSpinner.bind(this);
+		this.renderTorrent = this.renderTorrent.bind(this);
 	}
 
 	componentDidMount() {
@@ -28,12 +31,13 @@ export default class extends Component {
 		TorrentStore.removeChangeListener(this.onChange);
 	}
 
-	render() {
-		const loadingSpinner = () => {
-			if(this.state.loadingStream) {
-				return ( <p>Cargando stream (esto puede llevar unos minutos) <i className="glyphicon glyphicon-hourglass loading" /></p>);
-			}
-		};
+	loadingStreamSpinner() {
+		if(this.state.loadingStream) {
+			return (<LoadingSpinner message="Cargando stream (esto puede llevar unos minutos" />);
+		}
+	}
+	
+	renderTorrent() {
 		return (
 			<div>
 				<div className="row">
@@ -54,10 +58,14 @@ export default class extends Component {
 						<p>{ this.state.torrent.category }</p>
 					</div>
 				</div>
-				{loadingSpinner()}
+				{this.loadingStreamSpinner()}
 				<TorrentPlayer streamUrl={this.state.streamUrl} />
 			</div>
 		);
+	}
+
+	render() {
+		return ( this.state.isFetching ? <LoadingSpinner message="Cargando torrent" /> : this.renderTorrent() );
 	}
 
 	onChange() {

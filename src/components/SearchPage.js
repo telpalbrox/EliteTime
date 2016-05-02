@@ -4,6 +4,7 @@ import TorrentActions from '../actions/TorrentActions';
 import TorrentList from './TorrentList';
 import SearchInput from './SearchInput';
 import Pagination from './Pagination';
+import LoadingSpinner from './LoadingSpinner';
 
 export default class extends Component {
     constructor() {
@@ -11,6 +12,7 @@ export default class extends Component {
         this.state = SearchTorrentStore.getAll();
         this.searchTorrents = this.searchTorrents.bind(this);
         this.onChange = this.onChange.bind(this);
+		this.renderPagination = this.renderPagination.bind(this);
     }
 
     componentDidMount() {
@@ -20,6 +22,15 @@ export default class extends Component {
     componentWillUnmount() {
         SearchTorrentStore.removeChangeListener(this.onChange);
     }
+	
+	renderPagination() {
+		if(this.state.torrents && this.state.torrents.length) {
+			return (
+				<Pagination page={this.state.page} total={this.state.total} query={this.state.query}
+							changePage={TorrentActions.searchTorrent} searchDisabled={this.state.searchDisabled}/>
+			);
+		}
+	}
 
     render() {
         const pagination = () => {
@@ -28,15 +39,21 @@ export default class extends Component {
                     <Pagination page={this.state.page} total={this.state.total} query={this.state.query}
                                 changePage={TorrentActions.searchTorrent} searchDisabled={this.state.searchDisabled}/>
                 );
-            } else if(this.state.query !== null) {
-				return <span>No hay resultados</span>;
-			}
+            }
         };
         return (
             <section>
                 <h1>Búsqueda</h1>
                 <SearchInput search={this.searchTorrents} query={this.state.query} />
                 <TorrentList torrents={this.state.torrents} />
+				{(() => {
+					if(this.state.isFetching) {
+						return <LoadingSpinner message="Cargando resultados" />
+					}
+					if(this.state.query !== null && this.state.torrents && !this.state.torrents.length) {
+						return <span>No hay resultados</span>
+					}
+				})()}
                 { pagination() }
             </section>
         );
