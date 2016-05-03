@@ -49,7 +49,7 @@ export default class extends Component {
 				</div>
 				<div className="row" style={{textAlign: 'right'}}>
 					<div className="col-md-12">
-						{ this.state.streamUrl ? <span>Stream disponible en: {this.state.streamUrl}</span> : '' }
+						{ this.state.streamUrl ? <strong>Stream disponible en: {this.state.streamUrl}</strong> : '' }
 					</div>
 				</div>
 				<div className="row">
