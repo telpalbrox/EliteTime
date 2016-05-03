@@ -15,7 +15,10 @@
   "electronVersion": "0.37.8",
   "scripts": {
     "start": "grunt build-dev && electron .",
-    "package": "grunt build-dev && electron-packager . EliteTime --out=dist --ignore='^/dist' --prune --asar --all --version=0.37.8",
+    "package-all": "grunt build-dev && electron-packager . EliteTime --out=dist --ignore='^/dist' --prune --asar --all --version=0.37.8",
+    "package-linux": "grunt build-dev && electron-packager . EliteTime --out=dist --ignore='^/dist' --prune --asar --platform=linux --arch=all --version=0.37.8",
+    "package-darwin": "grunt build-dev && electron-packager . EliteTime --out=dist --ignore='^/dist' --prune --asar --platform=darwin --arch=all --version=0.37.8",
+    "package-windows": "grunt build-dev && electron-packager . EliteTime --out=dist --ignore='^/dist' --prune --asar --platform=win32 --arch=all --version=0.37.8",
     "dev": "grunt dev"
   },
   "keywords": [
