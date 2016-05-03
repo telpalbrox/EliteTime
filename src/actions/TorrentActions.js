@@ -147,7 +147,7 @@ let TorrentActions = {
 				break;
             case 'win32':
 				if(fs.existsSync("C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe")) {
-					command = `"C:\\Program Files\\VideoLAN\\VLC\\vlc"`;
+					command = `"C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc"`;
 				} else if(fs.existsSync("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe")) {
 					command = `"C:\\Program Files\\VideoLAN\\VLC\\vlc"`;
 				} else {
