@@ -12,10 +12,10 @@
   "engines": {
     "node": ">=4"
   },
-  "electronVersion": "0.34.1",
+  "electronVersion": "0.37.8",
   "scripts": {
     "start": "grunt build-dev && electron .",
-    "package": "grunt build-dev && electron-packager . EliteTime --out=dist --ignore='^/dist' --prune --asar --all --version=0.37.7",
+    "package": "grunt build-dev && electron-packager . EliteTime --out=dist --ignore='^/dist' --prune --asar --all --version=0.37.8",
     "dev": "grunt dev"
   },
   "keywords": [
@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "electron-packager": "^6.0.1",
-    "electron-prebuilt": "^0.37.5",
+    "electron-prebuilt": "^0.37.8",
     "grunt": "^0.4.5",
     "grunt-babel": "^5.0.0",
     "grunt-cli": "^1.2.0",
