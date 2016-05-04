@@ -6,7 +6,7 @@ import SearchInput from './SearchInput';
 import Pagination from './Pagination';
 import LoadingSpinner from './LoadingSpinner';
 
-export default class extends Component {
+export default class SearchPage extends Component {
     constructor() {
         super();
         this.state = SearchTorrentStore.getAll();
@@ -40,7 +40,7 @@ export default class extends Component {
             <section>
                 <h1>Búsqueda</h1>
                 <SearchInput search={this.searchTorrents} query={this.state.query} />
-                <TorrentList torrents={this.state.torrents} />
+                <TorrentList torrents={this.state.torrents} history={this.props.history} />
 				{(() => {
 					if(this.state.isFetching) {
 						return <LoadingSpinner message="Cargando resultados" />

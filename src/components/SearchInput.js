@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 
-export default class extends Component {
-    static propTypes = {
-        search: React.PropTypes.func.isRequired,
-        query: React.PropTypes.string
-    };
-
+export default class SearchInput extends Component {
     constructor() {
         super();
         this.search = this.search.bind(this);
@@ -34,4 +29,9 @@ export default class extends Component {
         event.preventDefault();
         this.props.search(this.refs.search.value);
     }
+};
+
+SearchInput.propTypes = {
+	search: React.PropTypes.func.isRequired,
+	query: React.PropTypes.string
 };

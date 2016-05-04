@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 
-export default class extends Component {
-	static propTypes = {
-		streamUrl: React.PropTypes.string
-	};
-
+export default class TorrentPlayer extends Component {
 	render() {
 		let { streamUrl } = this.props;
 		let createVideoElement = function() {
@@ -21,4 +17,8 @@ export default class extends Component {
 			</div>
 		);
 	}
+};
+
+TorrentPlayer.propTypes = {
+	streamUrl: React.PropTypes.string
 };

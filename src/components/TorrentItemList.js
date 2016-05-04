@@ -1,13 +1,6 @@
 import React, { Component, ReactPropTypes } from 'react';
-import { History } from 'react-router'
-import reactMixin from 'react-mixin';
 
-@reactMixin.decorate(History)
 export default class TorrentItemList extends Component {
-	static propTypes = {
-		torrent: React.PropTypes.object.isRequired
-	};
-
 	render() {
 		let torrentItemStyles = {};
 		if(this.props.torrent.image) {
@@ -15,7 +8,7 @@ export default class TorrentItemList extends Component {
 		} else {
 			torrentItemStyles.backgroundColor = 'black';
 		}
-		
+
 		return(
 			<div onClick={this.onClick.bind(this)} className="torrent-item col-xs-4" style={torrentItemStyles}>
 				<p>{ this.props.torrent.name }</p>
@@ -25,6 +18,11 @@ export default class TorrentItemList extends Component {
 	}
 
 	onClick() {
-		this.history.pushState(null, `/torrent/${this.props.torrent.id}`);
+		this.props.history.pushState(null, `/torrent/${this.props.torrent.id}`);
 	}
 }
+
+TorrentItemList.propTypes = {
+	torrent: React.PropTypes.object.isRequired,
+	history: React.PropTypes.object.isRequired
+};

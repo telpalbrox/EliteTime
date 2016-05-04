@@ -1,14 +1,6 @@
 import React, { Component, ReactPropTypes } from 'react';
 
-export default class extends Component {
-    static propTypes = {
-        page: React.PropTypes.number.isRequired,
-        total: React.PropTypes.number.isRequired,
-        query: React.PropTypes.string,
-        changePage: React.PropTypes.func.isRequired,
-        searchDisabled: React.PropTypes.bool.isRequired
-    };
-
+export default class Pagination extends Component {
     constructor() {
         super();
         this.nextPage = this.nextPage.bind(this);
@@ -64,3 +56,11 @@ export default class extends Component {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
 }
+
+Pagination.propTypes = {
+	page: React.PropTypes.number.isRequired,
+	total: React.PropTypes.number.isRequired,
+	query: React.PropTypes.string,
+	changePage: React.PropTypes.func.isRequired,
+	searchDisabled: React.PropTypes.bool.isRequired
+};

@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import { History } from 'react-router'
-import reactMixin from 'react-mixin';
 import request from 'request';
 import TorrentActions from '../actions/TorrentActions.js';
 import TorrentStore from '../stores/TorrentStore.js';
 import TorrentPlayer from './TorrentPlayer';
 import LoadingSpinner from './LoadingSpinner';
 
-@reactMixin.decorate(History)
-export default class extends Component {
-
+export default class TorrentPage extends Component {
 	constructor() {
 		super();
 		this.state = TorrentStore.getTorrent();
@@ -84,7 +80,7 @@ export default class extends Component {
 	}
 
 	goBack() {
-		this.history.goBack();
+		this.props.history.goBack();
 	}
 
 	downloadTorrent() {
