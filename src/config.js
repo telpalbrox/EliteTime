@@ -1,5 +1,5 @@
 "use strict";
 module.exports = {
-	"url": "http://www.elitetorrent.net",
-	"newpct": "http://www.newpct.com"
+	"url": "https://elitetorrent.website",
+	"newpct": "http://www.newpct1.com/"
 };

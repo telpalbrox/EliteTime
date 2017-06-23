@@ -35,12 +35,12 @@ module.exports = {
 				let torrent = {};
 				torrent.title = $boxCard.find('h2').text();
 				torrent.image = url + '/' + $boxCard.find('img.imagen_ficha').attr('src');
-				torrent.description = $boxCard.find('.descrip').get(1).children[0].data;
-				torrent.size = $boxCard.find('dd').get(3).children[0].data;
+				torrent.description = $boxCard.find('.descrip').eq(1).text();
+				torrent.size = $boxCard.find('dd').get(4).children[0].data;
 				torrent.category = $boxCard.find('dd').get(1).children[0].data;
-				let torrentUrls = $('a.enlace_torrent.degradado1');
-				torrent.url = url + torrentUrls.get(0).attribs.href;
-				torrent.magnet = torrentUrls.get(1).attribs.href;
+				let torrentUrls = $('a.enlace_torrent');
+				torrent.url = url + torrentUrls.get(1).attribs.href;
+				torrent.magnet = torrentUrls.get(2).attribs.href;
 				resolve(torrent);
 			}).catch(err => {
 				reject(err);
