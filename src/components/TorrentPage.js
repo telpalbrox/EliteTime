@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import request from 'request';
+import { withRouter } from 'react-router-dom';
 import TorrentActions from '../actions/TorrentActions.js';
 import TorrentStore from '../stores/TorrentStore.js';
 import TorrentPlayer from './TorrentPlayer';
 import LoadingSpinner from './LoadingSpinner';
 
-export default class TorrentPage extends Component {
+class TorrentPage extends Component {
 	constructor() {
 		super();
 		this.state = TorrentStore.getTorrent();
@@ -19,7 +20,7 @@ export default class TorrentPage extends Component {
 
 	componentDidMount() {
 		TorrentStore.addChangeListener(this.onChange);
-		TorrentActions.getTorrent(this.props.params.id);
+		TorrentActions.getTorrent(this.props.match.params.id);
 	}
 
 	componentWillUnmount() {
@@ -29,7 +30,7 @@ export default class TorrentPage extends Component {
 
 	loadingStreamSpinner() {
 		if(this.state.loadingStream) {
-			return (<LoadingSpinner message="Cargando stream (esto puede llevar unos minutos" />);
+			return (<LoadingSpinner message="Cargando stream (esto puede llevar unos minutos)" />);
 		}
 	}
 
@@ -87,7 +88,6 @@ export default class TorrentPage extends Component {
 		const fs = require('fs');
 		const dialog = require('electron').remote.dialog;
 		dialog.showSaveDialog({ title: 'Descargar .torrent', filters: [{ name: 'Torrent', extensions: ['torrent'] }] }, (filePath) => {
-			console.log(filePath);
 			const writeStream = fs.createWriteStream(filePath);
 			request(this.state.torrent.url).pipe(writeStream);
 			writeStream.on('error', (error) => {
@@ -100,3 +100,5 @@ export default class TorrentPage extends Component {
 		TorrentActions.openVideoVlc(this.state.streamUrl);
 	}
 }
+
+export default withRouter(TorrentPage);

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import TorrentItemList from './TorrentItemList';
 
-export default class TorrentList extends Component {
+class TorrentList extends Component {
 	render() {
 		let { torrents, history } = this.props;
 
@@ -18,6 +20,8 @@ export default class TorrentList extends Component {
 };
 
 TorrentItemList.propTypes = {
-	torrents: React.PropTypes.array,
-	history: React.PropTypes.object.isRequired
+	torrents: PropTypes.array,
+	history: PropTypes.object.isRequired
 };
+
+export default withRouter(TorrentList);

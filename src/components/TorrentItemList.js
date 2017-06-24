@@ -1,4 +1,5 @@
 import React, { Component, ReactPropTypes } from 'react';
+import PropTypes from 'prop-types';
 
 export default class TorrentItemList extends Component {
 	render() {
@@ -18,11 +19,11 @@ export default class TorrentItemList extends Component {
 	}
 
 	onClick() {
-		this.props.history.pushState(null, `/torrent/${this.props.torrent.id}`);
+		this.props.history.push(`/torrent/${this.props.torrent.id}`);
 	}
 }
 
 TorrentItemList.propTypes = {
-	torrent: React.PropTypes.object.isRequired,
-	history: React.PropTypes.object.isRequired
+	torrent: PropTypes.object.isRequired,
+	history: PropTypes.object.isRequired
 };

@@ -1,9 +1,7 @@
 'use strict';
-const app = require('app');
-const BrowserWindow = require('browser-window');
-
-// report crashes to the Electron project
-require('crash-reporter').start();
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
 
 // adds debug features like hotkeys for triggering dev tools and reload
 require('electron-debug')();

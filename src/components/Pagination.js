@@ -1,4 +1,5 @@
 import React, { Component, ReactPropTypes } from 'react';
+import PropTypes from 'prop-types';
 
 export default class Pagination extends Component {
     constructor() {
@@ -58,9 +59,9 @@ export default class Pagination extends Component {
 }
 
 Pagination.propTypes = {
-	page: React.PropTypes.number.isRequired,
-	total: React.PropTypes.number.isRequired,
-	query: React.PropTypes.string,
-	changePage: React.PropTypes.func.isRequired,
-	searchDisabled: React.PropTypes.bool.isRequired
+	page: PropTypes.number.isRequired,
+	total: PropTypes.number.isRequired,
+	query: PropTypes.string,
+	changePage: PropTypes.func.isRequired,
+	searchDisabled: PropTypes.bool.isRequired
 };

@@ -36,8 +36,8 @@ module.exports = {
 				torrent.title = $boxCard.find('h2').text();
 				torrent.image = url + '/' + $boxCard.find('img.imagen_ficha').attr('src');
 				torrent.description = $boxCard.find('.descrip').eq(1).text();
-				torrent.size = $boxCard.find('dd').get(4).children[0].data;
-				torrent.category = $boxCard.find('dd').get(1).children[0].data;
+				torrent.size = $boxCard.find('dt').filter((index, element) => $(element).text() === 'Tamaño').next().text();
+				torrent.category = $boxCard.find('dt').filter((index, element) => $(element).text() === 'Categoria').next().text();
 				let torrentUrls = $('a.enlace_torrent');
 				torrent.url = url + torrentUrls.get(1).attribs.href;
 				torrent.magnet = torrentUrls.get(2).attribs.href;
@@ -49,7 +49,7 @@ module.exports = {
 	},
 	search(query, page) {
 		return new Promise((resolve, reject) => {
-			let queryUrl = url + '/busqueda/' + query;
+			let queryUrl = url + '/resultados/' + query;
 			if (page) {
 				queryUrl += '/pag:' + page;
 			}

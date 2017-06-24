@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class SearchInput extends Component {
     constructor() {
@@ -32,6 +33,6 @@ export default class SearchInput extends Component {
 };
 
 SearchInput.propTypes = {
-	search: React.PropTypes.func.isRequired,
-	query: React.PropTypes.string
+	search: PropTypes.func.isRequired,
+	query: PropTypes.string
 };

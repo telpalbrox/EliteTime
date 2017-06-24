@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class TorrentPlayer extends Component {
 	render() {
@@ -20,5 +21,5 @@ export default class TorrentPlayer extends Component {
 };
 
 TorrentPlayer.propTypes = {
-	streamUrl: React.PropTypes.string
+	streamUrl: PropTypes.string
 };

@@ -25,7 +25,7 @@ export default class MainPage extends Component {
 		return this.state.isFetching ? <LoadingSpinner /> : (
 			<section>
 				<h1>Últimos torrents</h1>
-				<TorrentList torrents={this.state.torrents} history={this.props.history} />
+				<TorrentList torrents={this.state.torrents} />
 			</section>
 		);
 	}
