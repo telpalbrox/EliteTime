@@ -57,11 +57,11 @@ module.exports = {
 			for (let i = 0; i < $searchResults.length; i++) {
 				const $element = $searchResults.eq(i);
 				const torrent = {};
-				torrent.name = $element.find('h2 strong').text();
 				torrent.url = $element.find('a').eq(0).attr('href');
-				const category = $element.find('h2 span:last-of-type').text();
-				torrent.category = category.replace(/\[/gi, '').replace(/\]/gi, '').trim();
 				if (torrent.url.includes('series')) {
+					torrent.name = $element.find('h2 strong').text();
+					const category = $element.find('h2 span:last-of-type').text();
+					torrent.category = category.replace(/\[/gi, '').replace(/\]/gi, '').trim();
 					const titleWords = torrent.name.split(' ');
 					const season = titleWords[titleWords.indexOf('Temporada') + 1];
 					const episode = titleWords[titleWords.indexOf('Capitulo') + 1];
@@ -69,6 +69,8 @@ module.exports = {
 					if (!torrent.url) {
 						continue;
 					}
+				} else {
+					torrent.name = $element.find('h2').text();
 				}
 				const id = torrent.url.replace(url, '');
 				if (ids.includes(id)) {
