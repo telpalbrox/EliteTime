@@ -23,51 +23,67 @@ function runNewpctScript(code) {
 	return sandbox;
 }
 
+async function getTVShowEpisodeTorrentUrl(tvShowUrl, season, episode, page = 1) {
+	const response = await axios.get(`${tvShowUrl}/pg/${page}`);
+	const $ = cheerio.load(response.data);
+	const $episodeList = $('.buscar-list li');
+	if (!$episodeList.length) {
+		return null;
+	}
+	const $result = $episodeList.filter((index, episodeElement) => {
+		const $episode = $(episodeElement);
+		return $episode.find('h2').text().includes(`Temporada ${season} Capitulo ${episode}`);
+	});
+	if ($result.length) {
+		return $result.eq(0).find('a').eq(0).attr('href');
+	}
+	return getTVShowEpisodeTorrentUrl(tvShowUrl, season, episode, ++page);
+}
+
 module.exports = {
-	search(query, page) {
+	async search(query, page) {
 		let queryUrl = url + '/index.php';
-		return axios.get(queryUrl, {
+		const response = await axios.get(queryUrl, {
 			params: {
 				page: 'buscar',
 				q: query,
 				pg: page
 			}
-		}).then((response) => {
-			const $ = cheerio.load(response.data);
+		});
+		const $ = cheerio.load(response.data);
 			const $searchResults = $('.buscar-list li');
 			const torrents = [];
 			const ids = [];
-			$searchResults.each((index, element) => {
-				const $element = $(element);
+			for (let i = 0; i < $searchResults.length; i++) {
+				const $element = $searchResults.eq(i);
 				const torrent = {};
 				torrent.name = $element.find('h2 strong').text();
 				torrent.url = $element.find('a').eq(0).attr('href');
 				const category = $element.find('h2 span:last-of-type').text();
 				torrent.category = category.replace(/\[/gi, '').replace(/\]/gi, '').trim();
 				if (torrent.url.includes('series')) {
-					const urlParts = torrent.url.split('/');
-					const tvShowName = urlParts[urlParts.length - 2];
 					const titleWords = torrent.name.split(' ');
 					const season = titleWords[titleWords.indexOf('Temporada') + 1];
 					const episode = titleWords[titleWords.indexOf('Capitulo') + 1];
-					const categorySlug = torrent.category.replace(/\s/gi, '-').replace(/\./gi, '-').toLowerCase();
-					torrent.url = `${url}${$element.find('h2').text().includes('Español Castellano') ? 'descargar-serie' : 'descargar-serievo'}/${tvShowName}/capitulo-${season}${episode}/${categorySlug}/`
+					torrent.url = await getTVShowEpisodeTorrentUrl(torrent.url, season, episode);
+					if (!torrent.url) {
+						continue;
+					}
 				}
 				const id = torrent.url.replace(url, '');
 				if (ids.includes(id)) {
-					return;
+					continue;
 				}
 				ids.push(id);
 				torrent.id = encodeURIComponent(id);
 				torrent.image = $element.find('img').attr('src');
 				torrents.push(torrent);
-			});
+			}
 			const total = parseInt($('.page-box h3 strong').text().match(/\((.*?)\)/gi)[0].replace(/\(/gi, '').replace(/\)/gi, '').trim());
 			return {
 				torrents,
 				total
 			};
-		});
 	},
 	getTorrent(id) {
 		return axios.get(`${url}${decodeURIComponent(id)}`).then((response) => {
