@@ -12,7 +12,8 @@ let torrentDefaults = {
 	isFetching: false,
 	error: false,
 	engine: null,
-	loadingStream: false
+	loadingStream: false,
+    playerError: false
 };
 let torrent = Object.assign({}, torrentDefaults);
 
@@ -53,6 +54,7 @@ AppDispatcher.register(action => {
                 isFetching: false,
                 torrent: action.torrent,
 				loadingStream: true,
+                playerError: false,
 				engine: peerflix(action.torrent.magnet || action.torrent.file , {
 					tmp: os.tmpdir(),
 					uploads: 1
@@ -86,6 +88,9 @@ AppDispatcher.register(action => {
 			document.getElementById('torrent-video') && document.getElementById('torrent-video').pause();
 			TorrentStore.emitChange();
 			break;
+        case AppConstants.TORRENT_PLAYER_ERROR:
+            torrent = Object.assign({}, { playerError: true });
+            TorrentStore.emitChange();
         default:
             // nothing
     }

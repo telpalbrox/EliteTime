@@ -16,5 +16,6 @@ export default keyMirror({
     CLEAN_SEARCH_TORRENTS: null,
     TORRENT_STREAM_READY: null,
 	CLEAN_ALL: null,
-	OPEN_VIDEO_VLC: null
+	OPEN_VIDEO_VLC: null,
+    TORRENT_PLAYER_ERROR: null
 });

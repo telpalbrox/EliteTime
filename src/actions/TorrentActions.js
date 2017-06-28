@@ -166,6 +166,11 @@ let TorrentActions = {
 		AppDispatcher.dispatch({
 			type: AppConstants.OPEN_VIDEO_VLC
 		});
+	},
+	torrentPlayerError() {
+		AppDispatcher.dispatch({
+			type: AppConstants.TORRENT_PLAYER_ERROR
+		});
 	}
 };
 

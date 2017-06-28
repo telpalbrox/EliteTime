@@ -16,6 +16,7 @@ class TorrentPage extends Component {
 		this.playInVlc = this.playInVlc.bind(this);
 		this.loadingStreamSpinner = this.loadingStreamSpinner.bind(this);
 		this.renderTorrent = this.renderTorrent.bind(this);
+		this.onPlayerError = this.onPlayerError.bind(this);
 	}
 
 	componentDidMount() {
@@ -61,7 +62,9 @@ class TorrentPage extends Component {
 					</div>
 				</div>
 				{this.loadingStreamSpinner()}
-				<TorrentPlayer streamUrl={this.state.streamUrl} />
+				{this.state.playerError
+					? <div>Formato de video no compatible <button type="button" style={{float: 'right'}} className="btn btn-default back-button" onClick={this.playInVlc}>Reproducir en VLC</button></div>
+					: <TorrentPlayer streamUrl={this.state.streamUrl} onError={this.onPlayerError} />}
 			</div>
 		);
 	}
@@ -98,6 +101,10 @@ class TorrentPage extends Component {
 
 	playInVlc() {
 		TorrentActions.openVideoVlc(this.state.streamUrl);
+	}
+
+	onPlayerError() {
+		TorrentActions.torrentPlayerError();
 	}
 }
 
