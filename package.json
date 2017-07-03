@@ -1,10 +1,13 @@
 {
   "name": "elite-time",
   "productName": "EliteTime",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Unnoficial desktop EliteTorrent.net client",
   "license": "MIT",
-  "repository": "https://github.com/telpalbrox/EliteTime",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/telpalbrox/EliteTime.git"
+  },
   "author": {
     "name": "Alberto Luna",
     "email": "alberto.luna.95@gmail.com"
@@ -12,15 +15,11 @@
   "engines": {
     "node": ">=4"
   },
-  "electronVersion": "0.37.8",
   "scripts": {
     "start": "grunt build-dev && electron .",
-    "package-all": "grunt build-dev && electron-packager . EliteTime --out=dist --ignore='^/dist' --prune --asar --all",
-    "package-linux": "grunt build-dev && electron-packager . EliteTime --out=dist --ignore='^/dist' --prune --asar --platform=linux --arch=all",
-    "package-darwin": "grunt build-dev && electron-packager . EliteTime --out=dist --ignore='^/dist' --prune --asar --platform=darwin --arch=all",
-    "package-windows": "grunt build-dev && electron-packager . EliteTime --out=dist --ignore='^/dist' --prune --asar --platform=win32 --arch=all",
     "dev": "grunt dev",
-    "dist": "electron-builder"
+    "dist": "grunt build-dev && electron-builder",
+    "pack": "grunt build-dev && electron-builder --dir"
   },
   "keywords": [
     "electron-app",
@@ -31,6 +30,9 @@
     "bootstrap": "3.3.7",
     "cheerio": "1.0.0-rc.1",
     "electron-debug": "1.2.0",
+    "electron-is-dev": "0.2.0",
+    "electron-log": "2.2.6",
+    "electron-updater": "2.4.4",
     "flux": "3.1.2",
     "history": "4.6.3",
     "jquery": "3.2.1",
@@ -49,10 +51,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "6.24.1",
     "babel-preset-react": "6.24.1",
     "electron": "1.6.11",
-    "electron-builder": "^19.12.0",
-    "electron-packager": "8.7.1",
-    "electron-prebuilt": "1.4.13",
-    "electron-updater": "^2.4.4",
+    "electron-builder": "19.12.0",
     "grunt": "1.0.1",
     "grunt-babel": "6.0.0",
     "grunt-cli": "1.2.0",
@@ -66,6 +65,11 @@
     "appId": "es.albertoluna.elitetime",
     "directories": {
       "buildResources": "resources"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "Telpalbrox",
+      "vPrefixedTagName": false
     }
   }
 }

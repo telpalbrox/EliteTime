@@ -1,5 +1,7 @@
 'use strict';
 const electron = require('electron');
+const autoUpdater = require('electron-updater').autoUpdater;
+const isDev = require('electron-is-dev');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
@@ -39,3 +41,16 @@ app.on('activate-with-no-open-windows', () => {
 app.on('ready', () => {
 	mainWindow = createMainWindow();
 });
+
+if (!isDev) {
+	autoUpdater.logger = require('electron-log');
+	autoUpdater.logger.transports.file.level = 'info';
+
+	autoUpdater.on('update-downloaded', (info) => {
+		autoUpdater.quitAndInstall();
+	});
+
+	app.on('ready', function () {
+		autoUpdater.checkForUpdates();
+	});
+}
