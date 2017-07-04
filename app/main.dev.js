@@ -1,4 +1,4 @@
-/* eslint global-require: 1, flowtype-errors/show-errors: 0 */
+/* eslint global-require: 0, flowtype-errors/show-errors: 0 */
 
 /**
  * This module executes inside of electron's main process. You can start
@@ -12,6 +12,8 @@
  */
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
+
+const isDev = require('electron-is-dev');
 
 let mainWindow = null;
 
@@ -84,3 +86,17 @@ app.on('ready', async () => {
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
 });
+
+if (!isDev) {
+  const autoUpdater = require('electron-updater').autoUpdater;
+  autoUpdater.logger = require('electron-log');
+  autoUpdater.logger.transports.file.level = 'info';
+
+  autoUpdater.on('update-downloaded', () => {
+    autoUpdater.quitAndInstall();
+  });
+
+  app.on('ready', () => {
+    autoUpdater.checkForUpdates();
+  });
+}

@@ -1,27 +1,27 @@
 import React from 'react';
-import { render } from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
-import Root from './containers/Root';
-import { configureStore, history } from './store/configureStore';
-import './app.global.css';
+import ReactDOM from 'react-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
+import MainPage from './components/MainPage';
+import TorrentPage from './components/TorrentPage';
+import SearchPage from './components/SearchPage';
+import SettingsPage from './components/SettingsPage';
+import Footer from './components/Footer';
 
-const store = configureStore();
-
-render(
-  <AppContainer>
-    <Root store={store} history={history} />
-  </AppContainer>,
-  document.getElementById('root')
-);
-
-if (module.hot) {
-  module.hot.accept('./containers/Root', () => {
-    const NextRoot = require('./containers/Root'); // eslint-disable-line global-require
-    render(
-      <AppContainer>
-        <NextRoot store={store} history={history} />
-      </AppContainer>,
-      document.getElementById('root')
-    );
-  });
+// set default provider
+if (!localStorage.getItem('provider')) {
+  localStorage.setItem('provider', 'EliteTorrent');
 }
+
+ReactDOM.render(
+  <div>
+    <Router>
+      <div className="row">
+        <Route exact path="/" component={MainPage} />
+        <Route path="/torrent/:id" component={TorrentPage} />
+        <Route path="/search/:query?" component={SearchPage} />
+        <Route path="/settings" component={SettingsPage} />
+      </div>
+    </Router>
+    <Footer />
+  </div>, document.querySelector('#elite-time')
+);
