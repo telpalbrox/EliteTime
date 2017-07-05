@@ -18,7 +18,6 @@ export default class SearchPage extends Component {
   constructor() {
     super();
     this.state = SearchTorrentStore.getAll();
-    this.searchTorrents = this.searchTorrents.bind(this);
     this.onChange = this.onChange.bind(this);
     this.renderPagination = this.renderPagination.bind(this);
   }
@@ -56,7 +55,7 @@ export default class SearchPage extends Component {
     return (
       <section>
         <h1>Búsqueda</h1>
-        <SearchInput search={this.searchTorrents} query={this.state.query} />
+        <SearchInput search={SearchPage.searchTorrents} query={this.state.query} />
         <TorrentList torrents={this.state.torrents} history={this.props.history} />
         {(() => {
           if (this.state.isFetching) {

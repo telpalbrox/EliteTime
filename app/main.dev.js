@@ -33,8 +33,7 @@ const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
   const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
   const extensions = [
-    'REACT_DEVELOPER_TOOLS',
-    'REDUX_DEVTOOLS'
+    'REACT_DEVELOPER_TOOLS'
   ];
 
   return Promise
@@ -76,7 +75,7 @@ app.on('ready', async () => {
       throw new Error('"mainWindow" is not defined');
     }
     mainWindow.show();
-    mainWindow.focus();
+    // mainWindow.focus();
   });
 
   mainWindow.on('closed', () => {

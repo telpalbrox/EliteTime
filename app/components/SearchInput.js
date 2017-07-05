@@ -7,7 +7,7 @@ export default class SearchInput extends Component {
     this.search = this.search.bind(this);
     this.updateSearchValue = this.updateSearchValue.bind(this);
     this.state = {
-      searchValue: this.props.query
+      searchValue: ''
     };
   }
 
@@ -41,6 +41,5 @@ SearchInput.defaultProps = {
 };
 
 SearchInput.propTypes = {
-  search: PropTypes.func.isRequired,
-  query: PropTypes.string
+  search: PropTypes.func.isRequired
 };
