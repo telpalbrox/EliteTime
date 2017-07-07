@@ -1,4 +1,59 @@
 @import "~font-awesome/css/font-awesome.css";
+
+.et-page-title {
+  margin-bottom: 24px;
+}
+
+.et-torrent-list-item {
+  margin-bottom: 24px;
+}
+
+.et-torrent-list-item-image {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.et-torrent-list-item-image::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  font-family: FontAwesome, serif;
+  content: "\f01d";
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: black;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(4) rotate(180deg);
+  transition: all 0.3s ease-in;
+}
+
+.et-torrent-list-item-image:hover::after {
+  opacity: 0.75;
+  visibility: visible;
+  transform: scale(2) rotate(0);
+}
+
+.et-torrent-list-item-card {
+  height: 100%;
+}
+
+.et-torrent-list-item-card-body {
+  padding: 8px;
+}
+
+.et-torrent-list-item p {
+  color: #999;
+}
+
 .fade-enter {
   opacity: 0;
   z-index: 1;

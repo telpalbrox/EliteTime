@@ -10,6 +10,7 @@ import MainPage from './components/MainPage';
 import TorrentPage from './components/TorrentPage';
 import SearchPage from './components/SearchPage';
 import SettingsPage from './components/SettingsPage';
+import './app.global.css';
 
 const { Header, Content, Footer } = Layout;
 const appVersion = require('electron').remote.app.getVersion();
@@ -33,7 +34,7 @@ export default class App extends React.Component {
               </Menu>
             </Header>
             <Content style={{ padding: '0 50px' }}>
-              <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
+              <div style={{ background: '#fff', padding: 16, minHeight: 280 }}>
                 <CSSTransitionGroup
                   transitionName="fade"
                   transitionEnterTimeout={300}

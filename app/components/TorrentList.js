@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { Row } from 'antd';
 import { withRouter } from 'react-router-dom';
 import TorrentItemList from './TorrentItemList';
 import { Torrent, History } from '../interfaces';
@@ -21,7 +22,7 @@ class TorrentList extends Component {
       <TorrentItemList key={torrent.id} torrent={torrent} history={history} />
     ));
 
-    return (<div>{list}</div>);
+    return (<Row type="flex" className="et-torrent-list">{list}</Row>);
   }
 }
 

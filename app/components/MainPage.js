@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { Spin } from 'antd';
 import TorrentActions from '../actions/TorrentActions';
 import TorrentsStore from '../stores/TorrentsStore';
 import TorrentList from './TorrentList';
-import LoadingSpinner from './LoadingSpinner';
 
 export default class MainPage extends Component {
 
@@ -26,9 +26,9 @@ export default class MainPage extends Component {
   }
 
   render() {
-    return this.state.isFetching ? <LoadingSpinner /> : (
+    return this.state.isFetching ? <Spin /> : (
       <section>
-        <h1>Últimos torrents</h1>
+        <h1 className="et-page-title">Últimos torrents</h1>
         <TorrentList torrents={this.state.torrents} />
       </section>
     );
