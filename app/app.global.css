@@ -54,12 +54,34 @@
   color: #999;
 }
 
+.fade {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
 .fade-enter {
-  opacity: 0;
-  z-index: 1;
+  position: absolute;
+  opacity: 0.01;
+  transform: translateX(200%);
 }
 
 .fade-enter.fade-enter-active {
+  position: absolute;
   opacity: 1;
-  transition: opacity 250ms ease-in;
+  transform: translateX(0);
+  transition: all 500ms ease-in;
+}
+
+.fade-leave {
+  position: absolute;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-leave.fade-leave-active {
+  position: absolute;
+  opacity: 0.01;
+  transform: translateX(-200%);
+  transition: all 750ms ease-in;
 }

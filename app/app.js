@@ -4,7 +4,8 @@ import { Layout, Menu } from 'antd';
 import {
   HashRouter as Router,
   Route,
-  Link
+  Link,
+  Switch
 } from 'react-router-dom';
 import MainPage from './components/MainPage';
 import TorrentPage from './components/TorrentPage';
@@ -34,16 +35,21 @@ export default class App extends React.Component {
               </Menu>
             </Header>
             <Content style={{ padding: '0 50px' }}>
-              <div style={{ background: '#fff', padding: 16, minHeight: 280 }}>
+              <div style={{ background: '#fff', padding: 16, minHeight: 'calc(100vh - 64px - 66px)' }}>
                 <CSSTransitionGroup
                   transitionName="fade"
-                  transitionEnterTimeout={300}
-                  transitionLeaveTimeout={300}
+                  transitionEnterTimeout={500}
+                  transitionLeaveTimeout={750}
+                  className="fade"
                 >
-                  <Route location={location} key={location.key} exact path="/" component={MainPage} />
-                  <Route location={location} key={location.key} path="/torrent/:id" component={TorrentPage} />
-                  <Route location={location} key={location.key} path="/search/:query?" component={SearchPage} />
-                  <Route location={location} key={location.key} path="/settings" component={SettingsPage} />
+                  <Route location={location} key={location.pathname}>
+                    <Switch>
+                      <Route exact path="/" component={MainPage} />
+                      <Route path="/torrent/:id" component={TorrentPage} />
+                      <Route path="/search/:query?" component={SearchPage} />
+                      <Route path="/settings" component={SettingsPage} />
+                    </Switch>
+                  </Route>
                 </CSSTransitionGroup>
               </div>
             </Content>
