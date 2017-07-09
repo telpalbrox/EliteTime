@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import request from 'request';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { Spin, Button, Col, Row } from 'antd';
 import TorrentActions from '../actions/TorrentActions';
 import TorrentStore from '../stores/TorrentStore';
 import TorrentPlayer from './TorrentPlayer';
@@ -46,43 +47,36 @@ class TorrentPage extends Component {
   renderTorrent() {
     return (
       <div>
-        <div className="row">
-          <div className="col-md-12">
-            <button type="button" style={{ float: 'left' }} className="btn btn-default back-button" onClick={this.goBack}>Atrás</button>
-            <button type="button" style={{ float: 'right' }} className="btn btn-default back-button" onClick={this.downloadTorrent}>Descargar .torrent</button>
-            { this.state.streamUrl ? <button type="button" style={{ float: 'right' }} className="btn btn-default back-button" onClick={this.playInVlc}>Reproducir en VLC</button> : '' }
-          </div>
-        </div>
-        <div className="row" style={{ textAlign: 'right' }}>
-          <div className="col-md-12">
+        <Row>
+          <Col span={24}>
+            <Button icon="left" onClick={this.goBack}>Atrás</Button>
+            <Button icon="download" onClick={this.downloadTorrent}>Descargar .torrent</Button>
+            { this.state.streamUrl ? <Button onClick={this.playInVlc}>Reproducir en VLC</Button> : '' }
             { this.state.streamUrl ? <strong>Stream disponible en: {this.state.streamUrl}</strong> : '' }
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-3">
-            <img src={this.state.torrent.image} alt="" className="img-thumbnail" />
-          </div>
-          <div className="col-md-9">
+          </Col>
+        </Row>
+        <Row>
+          <Col span={6}>
+            <img src={this.state.torrent.image} alt="" />
             <p>{ this.state.torrent.title }</p>
-            <p>{ this.state.torrent.description }</p>
             <p>{ this.state.torrent.size }</p>
             <p>{ this.state.torrent.category }</p>
-          </div>
-        </div>
-        {this.loadingStreamSpinner()}
-        {this.state.playerError
-          ?
-            <div>Formato de video no compatible
-              <button
-                type="button"
-                style={{ float: 'right' }}
-                className="btn btn-default back-button"
-                onClick={this.playInVlc}
-              >
-                Reproducir en VLC
-              </button>
-            </div>
-           : <TorrentPlayer streamUrl={this.state.streamUrl} onError={TorrentPage.onPlayerError} />}
+            <p>{ this.state.torrent.description }</p>
+          </Col>
+          <Col span={18}>
+            {this.loadingStreamSpinner()}
+            {this.state.playerError
+              ?
+              <div>Formato de video no compatible
+                <Button
+                  onClick={this.playInVlc}
+                >
+                  Reproducir en VLC
+                </Button>
+              </div>
+              : <TorrentPlayer streamUrl={this.state.streamUrl} onError={TorrentPage.onPlayerError} />}
+          </Col>
+        </Row>
       </div>
     );
   }
@@ -116,7 +110,7 @@ class TorrentPage extends Component {
   }
 
   render() {
-    return (this.state.isFetching ? <LoadingSpinner message="Cargando torrent" /> : this.renderTorrent());
+    return (this.state.isFetching ? <Spin /> : this.renderTorrent());
   }
 }
 
